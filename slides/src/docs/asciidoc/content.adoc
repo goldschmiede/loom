@@ -1,0 +1,63 @@
+== Threads in Java
+
+* 1.0 (1997): Green-Threads
+* 1.1 (1998): OS-Threads
+* 1.5 (2004): ExecutorService (z. B. ThreadPoolExecutor)
+* 1.8 (2014): CompletableFuture, Parallel Streams
+* 9 (2016): java.util.concurrent.Flow (Reactive Streams)
+* 19 (2022): Virtual Threads, structured Concurrency
+
+== Verwendung von (Platform) Threads
+
+Idee: Kleiner Webserver, der selbst wieder Webservices aufruft
+
+== Verwendung virtueller Threads
+
+== Einschränkungen
+
+Blockiert den OS-Thread bei
+* by blockierenden OS-Aufrufen
+* synchronized-Blöcken
+
+Deshalb:
+* auf nicht blockierende Aufrufe achten
+* synchronized vermeiden (SpinLook, nicht blockierende Datenstukturen)
+
+== Virtual Threads vs. reactive Programming
+
+* Arbeiten mit Flux, Mono
+* Sinnvoll bei Stream-Verarbeitung
+
+== Thread lokal Variables
+
+== Extend lokal Variables
+
+== Probleme bei Parallelverarbeitung
+
+-> https://www.thedevtavern.com/blog/posts/structured-concurrency-explained/
+
+== Boilerplate, um Parallelverarbeitung besser zu machen
+
+== Strukturierte Programmierung
+
+Flussdiagramme vs. Struktogramme
+
+== Structured Concurrency
+
+== Vorteile
+
+== Scoped Values (Java 20)
+
+* https://openjdk.org/jeps/429
+* https://www.infoq.com/news/2022/09/extent-local-variables-java/
+
+== Links
+
+* https://openjdk.org/jeps/428
+* https://www.thedevtavern.com/blog/posts/structured-concurrency-explained/
+* https://www.happycoders.eu/java/structured-concurrency-structuredtaskscope/
+* https://www.infoq.com/news/2022/06/java-structured-concurrency/
+* https://theboreddev.com/understanding-structured-concurrency/
+* https://en.wikipedia.org/wiki/Structured_programming
+* https://flatironschool.com/blog/edsger-dijkstra/
+* https://dl.acm.org/doi/pdf/10.5555/1243380[Structured Programming, Dijkstra u. a, 1972]

@@ -1,0 +1,12 @@
+
+[state=no-title-footer]
+== Goldschmiede Project Loom
+
+Virtual Threads und structured Concurrency mit Java 19
+
+[.text-center]
+??.??.2023, Hans Jörg Heßmann
+
+include::intro.adoc[]
+
+include::content.adoc[]

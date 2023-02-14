@@ -1,0 +1,20 @@
+[.columns]
+== Vorstellung
+
+--
+[.heading]
+Hans Jörg Heßmann
+
+* Softwareentwickler
+* Java seit 1997
+* Schwerpunkte
+** Webanwendungen
+** Batch-Entwicklung
+** Build und Deployment
+** Codequalität und Testing
+* Java, Spring, Vaadin, Asciidoc, Dessert, ...
+--
+
+image::anderScore/user-hjhessmann.jpg[float=right, pdfwidth=3cm]
+
+include::anderScore1Slide.adoc[]

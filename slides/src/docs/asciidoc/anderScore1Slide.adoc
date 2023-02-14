@@ -1,0 +1,80 @@
+:chapter: Unternehmen
+:speaker: {revealjs_speaker}
+:jobtitle: {revealjs_speaker_jobtitle}
+:date: {revealjs_date}
+:promoter: {revealjs_promoter}
+:imagesdir: images
+:space:
+
+== Unternehmen
+
++++
+<head>
+<style>
+	span.r {
+		color:#225c4d;
+	}
+	ul.bullet li::before{
+  		content: "\25CF";
+  		color: #225c4d;
+  		display: inline-block;
+  		margin-right: 20px;
+	}
+	ul.checkmark li::before{
+  		content: "\2714";
+  		color: #225c4d;
+  		display: inline-block;
+  		margin-right: 11px;
+	}
+	ul.arrow li::before{
+  		content: "\2794";
+  		color: #225c4d;
+  		display: inline-block;
+  		margin-right: 11px;
+	}
+</style>
+</head>
+<body>
+<p>
+	<div style="position:relative; top:280px;">
+		Individuelle Anwendungsentwicklung - Java Enterprise, Web, Mobile
+		<ul class="bullet" style="list-style:none;">
+			<li>seit 2005 <span class="r">&#160;&#160;&#160;♦&#160;&#160;&#160;</span> in Köln <span class="r">&#160;&#160;&#160;♦&#160;&#160;&#160;</span> für alle Branchen <span class="r">&#160;&#160;&#160;♦&#160;&#160;&#160;</span> <img style="position:relative; top:17px" src="images/anderScore/goldschmiede.png" height="60"></li>
+			<li>nach Aufwand & zum Festpreis</li>
+		</ul>
+		<div class="fragment">
+			<ul class="checkmark" style="list-style:none;">
+				<li>Digitalisierung / Prozesse / Integration</li>
+				<li>Migration</li>
+				<li>Neuentwicklung</li>
+				<li>Notfall / kritische Situationen</li>
+			</ul><br>
+			<ul class="arrow" style="list-style:none;">
+				<li>pragmatisch, zielgerichtet, zuverlässig</li>
+			</ul>
+		</div>
+	</div>
+</p>
+<p class="fragment">
+	<img style="overflow:hidden; position:relative; bottom:30px; left:830px;" src="images/anderScore/Bereiche.png" height="600">
+</p>
+<p>
+	<div class="fragment">
+		<div style="position:relative; bottom:270px;">
+		Kompletter SW Life Cycle<br>
+			<ul class="bullet" style="list-style:none;">
+				<li>Projektmanagement / agile Methodik</li>
+				<li>Anforderungsanalyse</li>
+				<li>Architektur & SW-Design</li>
+				<li>Implementierung & Testautomation</li>
+				<li>Studien & Seminare</li>
+			</ul>
+		</div>
+		<div style="position:relative; left:850px; bottom:330px; color:#225c4d; font-weight:bold">
+			... und für Sie? Sprechen Sie uns an!
+		</div>
+	</div>
+</p>
+</body>
++++
+

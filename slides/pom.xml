@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.anderscore.hilla</groupId>
+    <artifactId>slides</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+
+        <!-- FIXME Titel ändern -->
+        <presentation.title>Hilla-Workshop</presentation.title>
+        <!-- FIXME Sprecher ändern (angezeigt auf den Folien)-->
+        <presentation.speaker>Hans Jörg Heßmann</presentation.speaker>
+        <!-- FIXME Sprecher (Kurzform) hinzufügen, getrennt durch Komma z.B. vnachname -->
+        <presentation.speaker.short>hjs</presentation.speaker.short>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <name>slides</name>
+    <url>https://gitlab.ads.anderscore.com/presentations/anderscore-revealjs</url>
+
+    <parent>
+        <groupId>com.anderscore.presentation</groupId>
+        <artifactId>revealjs-pom</artifactId>
+        <version>4.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.anderscore.presentation</groupId>
+            <artifactId>revealjs-pom</artifactId>
+            <version>4.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>revealJS-presentation</id>
+            <url>https://gitlab.ads.anderscore.com/api/v4/projects/6/packages/maven</url>
+            <releases>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>revealjs-server</id>
+            <url>https://gitlab.ads.anderscore.com/api/v4/projects/62/packages/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <defaultGoal>process-resources</defaultGoal>
+    </build>
+
+</project>

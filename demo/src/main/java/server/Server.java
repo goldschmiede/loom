@@ -1,14 +1,12 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.invoke.MethodHandle;
+import java.io.*;
 import java.lang.invoke.MethodHandles;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,35 +14,56 @@ public class Server {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-    void start() throws IOException {
+    void start(ExecutorService executorService) throws IOException {
         ServerSocket server = new ServerSocket(6868);
-        for (;;) {
-            try (Socket request = server.accept()) {
-                log.info("Accepting request.");
-                new Thread(() -> serve(request)).start();
-            }
+        while (true) {
+            Socket connection = server.accept();
+            executorService.submit(() -> serve(connection));
         }
     }
 
-    private void serve(Socket request) {
-        if (request.isInputShutdown()) {
-            log.warning("input shut down");
-            return;
-        }
-        try (InputStream is = request.getInputStream()) {
+    private void serve(Socket connection) {
+        try (Socket con = connection) {
+            InputStream in = con.getInputStream();
+            OutputStream out = con.getOutputStream();
+            StringBuilder request = new StringBuilder(512);
+            int count = 0;
             int c;
-            while ((c = is.read()) != -1) {
-                if (c < ' ') {
-                    System.out.print("<" + c + ">");
+            while (count < 2 && (c = in.read()) != -1) {
+                if (c >= ' ') {
+                    request.append((char) c);
+                    count=0;
+                } else if (c == '\n') {
+                    count++;
+                    request.append("<10>\n");
+                } else {
+                    request.append("<" + c + ">");
                 }
-                System.out.print((char)c);
             }
+            log.log(Level.FINE, () -> "Serving...\n" + request.toString());
+            String response = """
+                HTTP/1.1 200\s
+                Content-Type: text/html;charset=UTF-8
+                Content-Length: 12
+                                
+                Hello World!
+                """.replace("\n", "\r\n");
+            out.write(response.getBytes(StandardCharsets.UTF_8));
+            out.flush();
         } catch (IOException ex) {
             log.log(Level.SEVERE, "Cannot serve", ex);
         }
     }
 
     public static void main(String[] args) throws IOException {
-        new Server().start();
+        ExecutorService executorService = switch (5) {
+            case 1 -> Executors.newThreadPerTaskExecutor(Executors.defaultThreadFactory());
+            case 2 -> Executors.newFixedThreadPool(10);
+            case 3 -> Executors.newVirtualThreadPerTaskExecutor();
+            case 4 -> Executors.newWorkStealingPool();
+            case 5 -> Executors.newCachedThreadPool();
+            default -> Executors.newSingleThreadExecutor();
+        };
+        new Server().start(executorService);
     }
 }

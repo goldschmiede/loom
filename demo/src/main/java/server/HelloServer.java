@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Server {
+public class HelloServer {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
@@ -42,7 +42,7 @@ public class Server {
             }
             log.log(Level.FINE, () -> "Serving...\n" + request.toString());
             String response = """
-                HTTP/1.1 200\s
+                HTTP/1.1 200
                 Content-Type: text/html;charset=UTF-8
                 Content-Length: 12
                                 
@@ -64,6 +64,6 @@ public class Server {
             case 5 -> Executors.newCachedThreadPool();
             default -> Executors.newSingleThreadExecutor();
         };
-        new Server().start(executorService);
+        new HelloServer().start(executorService);
     }
 }

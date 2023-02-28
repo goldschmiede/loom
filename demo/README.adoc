@@ -1,0 +1,16 @@
+== Test mit Artillery
+
+Aufruf: http://localhost:6868
+
+Artillery installieren:
+
+    sudo npm install -g artillery
+
+Test ausführen:
+
+    artillery run hello.yml
+
+== Non-Blocking
+
+* ./lesson09-reactor/src/test/java/reactor/fragments/NonBlockingIOTest.java
+* https://jenkov.com/tutorials/java-nio/socketchannel.html

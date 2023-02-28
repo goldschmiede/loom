@@ -1,0 +1,5 @@
+== Links
+
+* https://java-8-tips.readthedocs.io/en/stable/forkjoin.html Wie arbeitet ein _work-stealing_ Fork-Join-Pool?
+* https://neiljbrown.com/2022/07/23/preparing-for-java-virtual-threads Wann sind reactive APIs und der
+  ExecutorService noch sinnvoll?

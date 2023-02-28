@@ -1,11 +1,108 @@
+== Überblick
+
+* https://openjdk.org/jeps/425[JEP 425]: Virtual Threads
+* https://openjdk.org/jeps/428[JEP 428]: Structured Concurrency
+* https://openjdk.org/jeps/428[JEP 429]: Scoped Values
+
 == Threads in Java
 
-* 1.0 (1997): Green-Threads
-* 1.1 (1998): OS-Threads
-* 1.5 (2004): ExecutorService (z. B. ThreadPoolExecutor)
-* 1.8 (2014): CompletableFuture, Parallel Streams
-* 9 (2016): java.util.concurrent.Flow (Reactive Streams)
-* 19 (2022): Virtual Threads, structured Concurrency
+[cols="1,2,6"]
+|===
+|Jahr|Java-Version|Features
+
+|1997|1.0|Green-Threads
+|1998|1.1|OS-Threads
+|2004|1.5|ExecutorService (z. B. ThreadPoolExecutor)
+|2014|1.8|CompletableFuture, Parallel Streams
+|2016|9|java.util.concurrent.Flow (Reactive Streams)
+|2022|19|Virtual Threads, structured Concurrency
+|===
+
+== Eigenschaften von Plattform-Threads
+
+* Erstellen und Beenden sind teuer (Betriebssystem-Aufrufe)
+* Preemtives Scheduling (Thread kann jederzeit unterbrochen werden)
+*
+
+== Problem: Blockierende Aufrufe
+
+.Annahme:
+. Webserver verarbeitet Requests
+. Webservice-Aufruf dafür notwendig
+
+=> Thread, der den Request verarbeitet ist für die Dauer
+des Webservice-Aufrufs blockiert +
+=> CPU wird nie zu 100% ausgenutzt
+
+== Lösung: Nichtblockierende Aufrufe
+
+.Umsetzung (z. B. mit https://www.reactive-streams.org/[reactive Streams]):
+* Webservice-Aufruf erfolgt asynchron
+* Thread kann sofort den nächsten Request verarbeiten
+* Beliebiger Thread reagiert auf Antwort via `Selector`
+
+.Vorteil:
+* Durchsatz optimal
+
+.Nachteile:
+* Stacktrace erlaubt keine Rückschlüsse auf Request
+* Komplizierte Implementierung
+
+Schön wäre, wenn für jeden Request
+der Stacktrace zwischengespeichert würde...
+
+== Was sind virtuelle Threads
+
+[.heading]
+Bisher:
+
+1 Java-Thread -- 1 Plattform-Thread
+
+Thread-Scheduling ausschließlich durch Betriebssystem
+
+[.heading]
+&nbsp;
+
+[.heading]
+Neu:
+
+N Virtuelle Threads -- M Plattform-Threads
+
+Java-VM _scheduled_ virtuelle Threads auf Plattform-Threads
+
+== Virtuelle Threads vs. Plattform-Threads
+
+|===
+|Plattform Threads|Virtuelle Threads
+
+|Betriebssystem-Aufrufe zum Erstellen und Beenden
+|Nur ein Java-Objekt für Metadaten und Stacktrace
+
+|Preemtives Multitasking (Thread kann jederzeit unterbrochen werden)
+|Kooperatives Multitasking (_work-stealing_ `ForkJoinPool`)
+
+|Ein Thread ist ein Java-Thread und zugleich ein Plattform-Thread
+|Ein Thread ist ein Java-Thread läuft aber aus der Sicht von nativem
+ Code auf einem völlig anderen Plattform-Thread
+
+|Priorität einstellbar und Ausführung als Dämon möglich
+|APIs für Priorität und Dämon sind no-ops.
+|===
+
+== Grenzen virtueller Threads
+
+* Synchronized-Blöcke blockieren den verwendeten Plattform-Thread
+
+
+== Ersetzen virtuelle Threads _reactive APIs_?
+
+.Nein:
+* Stream-Verarbeitung ist mit reactive Streams einfacher
+* Reactive Streams unterstützen Back-Pressure.
+
+== Virtuellen Thread erzeugen
+
+
 
 == Verwendung von (Platform) Threads
 

@@ -18,12 +18,6 @@
 |2022|19|Virtual Threads, structured Concurrency
 |===
 
-== Eigenschaften von Plattform-Threads
-
-* Erstellen und Beenden sind teuer (Betriebssystem-Aufrufe)
-* Preemtives Scheduling (Thread kann jederzeit unterbrochen werden)
-*
-
 == Problem: Blockierende Aufrufe
 
 .Annahme:
@@ -91,14 +85,19 @@ Java-VM _scheduled_ virtuelle Threads auf Plattform-Threads
 
 == Grenzen virtueller Threads
 
-* Synchronized-Blöcke blockieren den verwendeten Plattform-Thread
+* Plattform-Thread wird blockiert durch:
+  ** Synchronized-Blöcke +
+     (das soll sich in Zukunft ändern)
+  ** viele Systemaufrufe
+* Rechenleistung bleibt unverändert
 
+=> Es geht nur darum, Wartezeiten besser auszunutzen
 
 == Ersetzen virtuelle Threads _reactive APIs_?
 
 .Nein:
 * Stream-Verarbeitung ist mit reactive Streams einfacher
-* Reactive Streams unterstützen Back-Pressure.
+* Reactive Streams unterstützen Back-Pressure
 
 == Virtuellen Thread erzeugen
 

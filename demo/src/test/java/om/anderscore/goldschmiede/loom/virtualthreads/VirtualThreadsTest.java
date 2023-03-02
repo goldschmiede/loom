@@ -3,13 +3,13 @@ package om.anderscore.goldschmiede.loom.virtualthreads;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -28,24 +28,36 @@ public class VirtualThreadsTest {
 
     private AtomicInteger counter = new AtomicInteger(0);
 
-    private Lock lock = new ReentrantLock();
+    private Lock[] locks;
+
+    @BeforeEach
+    void init() {
+        locks = new Lock[100];
+        for (int i = 0; i < locks.length; i++) {
+            locks[i] = new ReentrantLock();
+        }
+    }
 
     @Test
     void testThreads() throws InterruptedException {
         int count = 10_000;
         countDownLatch = new CountDownLatch(count);
         long ts = System.nanoTime();
-        try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
+        try (ExecutorService executorService = Executors.newFixedThreadPool(100)) {
             for (int i = 0; i < count; i++) {
-                executorService.submit(i % 3 == 0 ? this::request : this::delay);
+                executorService.submit(this::delay);
+                // executorService.submit(i % 3 == 0 ? this::request : this::delay);
             }
             countDownLatch.await();
             log.info("done after {} s", (System.nanoTime() - ts) / 1e9);
         }
     }
 
-    void delay() {
-        int count = counter.incrementAndGet();
+    private synchronized void delay() {
+        delayCount(counter.incrementAndGet());
+    }
+
+    private void delayCount(int count) {
         log.debug("delay start: started {}, remaining {}", count, countDownLatch.getCount());
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -56,16 +68,18 @@ public class VirtualThreadsTest {
         }
     }
 
-    void lockedDelay() {
+    private void lockedDelay() {
+        int count = counter.incrementAndGet();
+        Lock lock = locks[count % locks.length];
         lock.lock();
         try {
-            delay();
+            delayCount(count);
         } finally {
             lock.unlock();
         }
     }
 
-    void request() {
+    private void request() {
         int count = counter.incrementAndGet();
         log.debug("request start: started {}, remaining {}", count, countDownLatch.getCount());
         try {
@@ -79,5 +93,11 @@ public class VirtualThreadsTest {
         } catch (IOException ex) {
             throw new IllegalStateException("IO-error", ex);
         }
+    }
+
+    private void createVirtualThreads() {
+        Runnable runnable = () -> {};
+        Thread.ofPlatform().name("my-thread").start(runnable);
+        Thread.ofVirtual().name("my-thread").unstarted(runnable);
     }
 }

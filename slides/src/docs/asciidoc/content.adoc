@@ -93,15 +93,56 @@ Java-VM _scheduled_ virtuelle Threads auf Plattform-Threads
 
 => Es geht nur darum, Wartezeiten besser auszunutzen
 
+== Was ist bei virtuellen Threads zu beachten?
+
+* Möglichst nicht blockierende API's verwenden
+* `synchronized` vermeiden:
+    ** nicht blockierende Datenstrukturen
+    ** `ReentrantLock`
+
 == Ersetzen virtuelle Threads _reactive APIs_?
 
 .Nein:
 * Stream-Verarbeitung ist mit reactive Streams einfacher
 * Reactive Streams unterstützen Back-Pressure
 
+[.columns]
 == Virtuellen Thread erzeugen
 
+--
+[source,java]
+.Plattform-Thread erzeugen:
+----
+Thread.ofPlatform().start(runnable);
+----
 
+&nbsp; +
+
+[source,java]
+.ExecutorService erzeugen (Beispiel):
+----
+Executors.newFixedThreadPool(100);
+----
+--
+
+--
+[source,java]
+.Virtuellen Thread erzeugen:
+----
+Thread.ofVirtual().start(runnable);
+----
+
+&nbsp; +
+
+[source,java]
+.ExecutorService erzeugen:
+----
+Executors.newVirtualThreadPerTaskExecutor();
+----
+--
+
+[state=no-title-footer]
+== Demo
 
 == Verwendung von (Platform) Threads
 

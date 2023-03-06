@@ -1,10 +1,18 @@
-== Links
+include::_attributes.adoc[]
 
-* https://java-8-tips.readthedocs.io/en/stable/forkjoin.html
-  Wie arbeitet ein _work-stealing_ Fork-Join-Pool?
-* https://neiljbrown.com/2022/07/23/preparing-for-java-virtual-threads
-  Wann sind reactive APIs und der ExecutorService noch sinnvoll?
-  Was sind Pinned Threads und was kann man dagegen tun?
+[state=no-title-footer]
+== Scoped Values
+
+== Thread lokal Variables
+
+== Extend lokal Variables
+
+== Scoped Values (Java 20)
+
+* https://openjdk.org/jeps/429
+* https://www.infoq.com/news/2022/09/extent-local-variables-java/
+
+== Links
 
 * https://openjdk.org/jeps/428
 * https://www.thedevtavern.com/blog/posts/structured-concurrency-explained/
@@ -14,4 +22,3 @@
 * https://en.wikipedia.org/wiki/Structured_programming
 * https://flatironschool.com/blog/edsger-dijkstra/
 * https://dl.acm.org/doi/pdf/10.5555/1243380[Structured Programming, Dijkstra u. a, 1972]
-

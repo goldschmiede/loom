@@ -1,0 +1,46 @@
+[state=no-title-footer]
+== Structured Concurrency
+
+== Einfaches Beispiel
+
+Quelle: https://www.thedevtavern.com/blog/posts/structured-concurrency-explained/
+
+[source, java, indent=0]
+----
+include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=simple]
+----
+
+.Probleme:
+[.step]
+* Was passiert, wenn `fetchData()` lange braucht?
+* Was passiert, wenn `fetchData()` eine Exception wirft?
+* Was passiert, wenn `fetchData()` in eine Endlosschleife läuft?
+
+== Verbessertes Beispiel
+
+[source, java, indent=0]
+----
+include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=improved]
+----
+
+.Probleme:
+[.step]
+* Threads laufen weiter, wenn 1. `fetchData()` Exception wirft
+* Berechnung lässt sich nicht abbrechen
+
+== Beispiel mit structured Concurrency
+
+[source, java, indent=0]
+----
+include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=structured]
+----
+
+== Structured Concurrency
+
+* Logische Klammer um parallel ausgeführte Aufgaben
+  (ähnlich einer Methode)
+* Unbehandelte Exception beendet die Ausführung aller Threads:
+    ** wenn eine Teilaufgabe fehlschlägt
+    ** wenn es zu Fehler in logischer Klammer kommt
+* Logische Klammer kann als ganzes abgebrochen werden (`shutdown`)
+

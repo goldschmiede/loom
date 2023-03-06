@@ -1,4 +1,4 @@
-package om.anderscore.goldschmiede.loom.virtualthreads;
+package com.anderscore.goldschmiede.loom.virtualthreads;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;

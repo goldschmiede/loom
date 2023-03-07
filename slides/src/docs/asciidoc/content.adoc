@@ -4,6 +4,17 @@
 * https://openjdk.org/jeps/428[JEP 428]: link:#/_structured_concurrency[Structured Concurrency]
 * https://openjdk.org/jeps/428[JEP 429]: link:#/_scoped_values[Scoped Values]
 
+== Problemstellung
+
+[.heading]
+Wer hat sowas schon mal erlebt?
+
+* Performance der Anwendung ist schlecht
+* Kein Engpass (CPU, Speicher, IO, Netzwerk) feststellbar
+* Einfache Konfigurationsänderungen (Speicher, Anzahl Threads) +
+  bringen keine nennenswerte Verbesserung
+* Kunde will schnellstmöglich Ursache und Gegenmaßnahmen erfahren
+
 include::_virtual_threads.adoc[]
 
 include::_structured_concurrency.adoc[]

@@ -3,22 +3,34 @@ include::_attributes.adoc[]
 [state=no-title-footer]
 == Scoped Values
 
+== Teaser
+
+[quote]
+____
+The enterprise bean must not attempt to manage threads. *The enterprise bean must not attempt to start*, stop, suspend, or resume *a thread*, or to change a thread’s priority or name. The enterprise bean must not attempt to manage thread groups.
+____
+
+[.center]
+--
+Quelle: https://jakarta.ee/specifications/enterprise-beans/4.0/jakarta-enterprise-beans-spec-core-4.0.html#a9535[Jakarta® Enterprise Beans, Core Features, Version 4.0 Final]
+
+&nbsp; +
+
+[.heading]
+Warum?
+--
+
+[.step]
+* Antwort (ebendort):
++
+____
+These functions are reserved for the Enterprise Beans container. Allowing the enterprise bean to manage threads would decrease the container’s ability to properly manage the runtime environment.
+____
+
+== Problemstellung
+
+
 == Thread lokal Variables
 
 == Extend lokal Variables
 
-== Scoped Values (Java 20)
-
-* https://openjdk.org/jeps/429
-* https://www.infoq.com/news/2022/09/extent-local-variables-java/
-
-== Links
-
-* https://openjdk.org/jeps/428
-* https://www.thedevtavern.com/blog/posts/structured-concurrency-explained/
-* https://www.happycoders.eu/java/structured-concurrency-structuredtaskscope/
-* https://www.infoq.com/news/2022/06/java-structured-concurrency/
-* https://theboreddev.com/understanding-structured-concurrency/
-* https://en.wikipedia.org/wiki/Structured_programming
-* https://flatironschool.com/blog/edsger-dijkstra/
-* https://dl.acm.org/doi/pdf/10.5555/1243380[Structured Programming, Dijkstra u. a, 1972]

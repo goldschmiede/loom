@@ -1,3 +1,5 @@
+include::_attributes.adoc[]
+
 [state=no-title-footer]
 == Structured Concurrency
 
@@ -7,7 +9,7 @@ Quelle: https://www.thedevtavern.com/blog/posts/structured-concurrency-explained
 
 [source, java, indent=0]
 ----
-include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=simple]
+include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=simple]
 ----
 
 .Probleme:
@@ -20,7 +22,7 @@ include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structu
 
 [source, java, indent=0]
 ----
-include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=improved]
+include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=improved]
 ----
 
 .Probleme:
@@ -32,10 +34,65 @@ include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structu
 
 [source, java, indent=0]
 ----
-include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=structured]
+include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/structuredconcurreny/StructuredConcurrencyTest.java[tags=structured]
 ----
 
-== Structured Concurrency
+== Structured Concurrency als Aktivitendiagramm
+
+[plantuml, SimpleConcurrency, svg]
+....
+@startuml
+scale 2
+start
+:Init;
+fork
+    :Task 1;
+fork again
+    :Task 2;
+fork again
+    :Task 3;
+fork again
+    :Task 4;
+end fork
+note right
+Mit structured Concurrency und virtual Threads
+erstmalig in Java direkt abbildbar,
+insbesondere auch im <b>Fehlerfall</b>.
+end note
+:Aggregate;
+stop
+@enduml
+....
+
+== Schachtelung
+
+[plantuml, Schachtelung, svg]
+....
+@startuml
+scale 2
+start
+fork
+    :Task 1;
+fork again
+    :Task 2;
+    :Task 2;
+fork again
+    fork
+        :Task 3a;
+    fork again
+        :Task 3b;
+    end fork
+    note right
+    Nebenläufige Blöcke
+    können geschachtelt
+    werden.
+    end note
+end fork
+stop
+@enduml
+....
+
+== Eigenschaften von Structured Concurrency
 
 * Logische Klammer um parallel ausgeführte Aufgaben
   (ähnlich einer Methode)
@@ -43,4 +100,28 @@ include::../../../../demo/src/test/java/com/anderscore/goldschmiede/loom/structu
     ** wenn eine Teilaufgabe fehlschlägt
     ** wenn es zu Fehler in logischer Klammer kommt
 * Logische Klammer kann als ganzes abgebrochen werden (`shutdown`)
+
+== Structured Concurrency API
+
+`StructuredTaskScope.ShutdownOnFailure`::
+  * Bricht den ganzen Block ab, sobald ein Subtask eine Exception wirft
+  * Nützlich, wenn das Endergebnis jedes Teilergebnis erfordert (Normalfall)
+
+&nbsp; +
+
+`StructuredTaskScope.ShutdownOnSuccess<T>`::
+* Bricht den ganzen Block ab, sobald ein Subtask ein Ergebnis liefert
+* Nützlich, wenn jeder Subtask das gleiche Ergebnis ermittelt (der Schnellste gewinnt)
+
+&nbsp; +
+
+Durch Schachtelung kann man beide Kombinieren
+
+== Verwenden von Structured Concurrency
+
+[source, xml, indent=0]
+.Structured Concurrency ist noch im _Incubator_ Status:
+----
+include::{demo}/pom.xml[tags=incubator]
+----
 

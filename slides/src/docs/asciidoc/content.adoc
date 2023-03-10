@@ -20,3 +20,6 @@ include::_virtual_threads.adoc[]
 include::_structured_concurrency.adoc[]
 
 include::_scoped_values.adoc[]
+
+[state=no-title-footer]
+== Fragen?

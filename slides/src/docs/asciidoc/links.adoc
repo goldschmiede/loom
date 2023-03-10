@@ -6,6 +6,8 @@
   Wann sind reactive APIs und der ExecutorService noch sinnvoll?
   Was sind Pinned Threads und was kann man dagegen tun?
 
+=== Structured Concurrency
+
 * https://openjdk.org/jeps/428
 * https://www.thedevtavern.com/blog/posts/structured-concurrency-explained/
 * https://www.happycoders.eu/java/structured-concurrency-structuredtaskscope/
@@ -14,4 +16,9 @@
 * https://en.wikipedia.org/wiki/Structured_programming
 * https://flatironschool.com/blog/edsger-dijkstra/
 * https://dl.acm.org/doi/pdf/10.5555/1243380[Structured Programming, Dijkstra u. a, 1972]
+
+=== Scoped Values (Java 20)
+
+* https://openjdk.org/jeps/429
+* https://www.infoq.com/news/2022/09/extent-local-variables-java/
 

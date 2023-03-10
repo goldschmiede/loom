@@ -1,2 +1,2 @@
 :imagesdir: images
-:demo: .../../../../demo
+:demo: ../../../../demo

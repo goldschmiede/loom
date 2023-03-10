@@ -29,6 +29,23 @@ ____
 
 == Problemstellung
 
+[plantuml, Aufrufkette, svg]
+....
+@startuml
+scale 2
+Controller -> Request: authenticate(request)
+create User
+Request -> User
+Controller -> Service1: processRequest(requestData)
+Service1 -> Service2: handleItem(itemData)
+Service2 -> Repository: updateItem(itemData)
+Repository -> User: hasPermission()
+note right: Woher kommt der User?
+@enduml
+....
+
+[.step]
+* Lösung: `ThreadLocal`
 
 == Thread lokal Variables
 

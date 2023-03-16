@@ -79,8 +79,8 @@ include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/scopedvalules/Thr
 == Scoped Values
 
 * Gleicher Verwendungszweck wie `ThreadLocal`
-* Lebenszeit ist an Anführungskontext gebunden
-* Wird innerhalb von `StructuredTaskScope` vererbt
+* Lebenszeit ist an Ausführungskontext gebunden
+* Wird *ausschließlich* innerhalb von `StructuredTaskScope` vererbt
 * Unveränderlich (kein set)
 * Sollte immutable sein (z. B. Record)
 * Rebinding für geschachtelten Ausführungskontext möglich (z. B. für sudo)

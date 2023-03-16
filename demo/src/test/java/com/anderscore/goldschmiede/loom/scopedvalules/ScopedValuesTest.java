@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.lang.invoke.MethodHandles;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +31,22 @@ public class ScopedValuesTest {
     private void doNested() {
         ScopedValue.where(USERNAME, "hugo", this::doParallel);
         doParallel();
+        doSingleThread();
+        System.out.println("  main: " + produceResult());
+    }
+
+    private void doSingleThread() {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        Thread.ofVirtual().name("single thread")
+                .start(() -> {
+                    System.out.println("single: " + produceResult());
+                    countDownLatch.countDown();
+                });
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException ex) {
+            log.info("await was interrupted", ex);
+        }
     }
 
     private void doParallel() {

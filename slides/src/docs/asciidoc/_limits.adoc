@@ -1,0 +1,15 @@
+include::_attributes.adoc[]
+
+[state=no-title-footer]
+== Einschränkungen
+
+== Datenbankzugriff (JDBC)
+
+* DB-Transaktion ist an Connection gebunden
+* Jeder Thread benötigt eigene Connection
+    ** => Verteilte Transaktionen
+    ** => Eventual (schließlich) Consistency
+* Anzahl Threads ist durch Connection-Pool begrenzt
+
+* Alternative: *R2DBC* +
+-> https://spring.io/blog/2019/05/16/reactive-transactions-with-spring

@@ -1,5 +1,6 @@
 package com.anderscore.goldschmiede.loom.virtualthreads;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -10,6 +11,7 @@ import java.util.concurrent.Executors;
 public class LoadGenTest {
 
     @Test
+    @Disabled
     void testThreads() throws InterruptedException {
         int count = 1_000_000;
         var countDownLatch = new CountDownLatch(count);

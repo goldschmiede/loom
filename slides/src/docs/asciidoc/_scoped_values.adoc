@@ -47,7 +47,64 @@ note right: Woher kommt der User?
 [.step]
 * Lösung: `ThreadLocal`
 
+[.columns]
 == Thread lokal Variables
 
-== Extend lokal Variables
+[.top]
+--
+&nbsp; +
 
+* Lebenszeit an Thread gebunden +
+  (Vorsicht: Memory-Leak)
+* Ein Exemplar je Thread +
+  wg. `set`-Methode +
+  (teuer)
+* Für Kontextinformationen +
+  (z. B. aktueller User)
+
+&nbsp; +
+&nbsp; +
+
+[.heading]
+Was gibt der Test aus?
+--
+
+--
+[source, java, indent=0]
+----
+include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/scopedvalules/ThreadLocalTest.java[tags=threadLocal]
+----
+--
+
+== Scoped Values
+
+* Gleicher Verwendungszweck wie `ThreadLocal`
+* Lebenszeit ist an Anführungskontext gebunden
+* Wird innerhalb von `StructuredTaskScope` vererbt
+* Unveränderlich (kein set)
+* Sollte immutable sein (z. B. Record)
+* Rebinding für geschachtelten Ausführungskontext möglich (z. B. für sudo)
+
+== Verwendung von Scoped Values
+
+[source, java, indent=0]
+.Scoped Value deklarieren
+----
+include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/scopedvalules/ScopedValuesTest.java[tags=scoped]
+----
+
+&nbsp; +
+
+[source, java, indent=0]
+.Scoped Value setzen
+----
+include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/scopedvalules/ScopedValuesTest.java[tags=where]
+----
+
+&nbsp; +
+
+[source, java, indent=0]
+.Scoped Value auslesen (ähnlich _Optional_)
+----
+include::{demo}/src/test/java/com/anderscore/goldschmiede/loom/scopedvalules/ScopedValuesTest.java[tags=read]
+----

@@ -14,7 +14,7 @@
     <name>demo</name>
     <description>demo</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>20</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -102,6 +102,7 @@
                 <version>3.0.0-M9</version>
                 <configuration>
                     <argLine>--enable-preview --add-modules jdk.incubator.concurrent</argLine>
+                    <trimStackTrace>false</trimStackTrace>
                 </configuration>
             </plugin>
             <!-- end::incubator[] -->

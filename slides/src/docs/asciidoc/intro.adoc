@@ -12,7 +12,7 @@ Hans Jörg Heßmann
 ** Batch-Entwicklung
 ** Build und Deployment
 ** Codequalität und Testing
-* Java, Spring, Vaadin, Asciidoc, Dessert, ...
+* Java, Spring, Vaadin, Asciidoc, DessertJ, ...
 --
 
 image::anderScore/user-hjhessmann.jpg[float=right, pdfwidth=3cm]

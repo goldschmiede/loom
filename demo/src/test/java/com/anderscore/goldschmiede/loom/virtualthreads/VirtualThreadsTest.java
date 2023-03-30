@@ -43,7 +43,7 @@ public class VirtualThreadsTest {
         int count = 10_000;
         countDownLatch = new CountDownLatch(count);
         long ts = System.nanoTime();
-        try (ExecutorService executorService = Executors.newFixedThreadPool(100)) {
+        try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
             for (int i = 0; i < count; i++) {
                 executorService.submit(this::delay);
                 // executorService.submit(i % 3 == 0 ? this::request : this::delay);
@@ -53,7 +53,7 @@ public class VirtualThreadsTest {
         }
     }
 
-    private synchronized void delay() {
+    private void delay() {
         delayCount(counter.incrementAndGet());
     }
 

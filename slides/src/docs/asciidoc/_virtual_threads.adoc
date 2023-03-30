@@ -12,7 +12,7 @@
 |2004|1.5|ExecutorService (z. B. ThreadPoolExecutor)
 |2014|1.8|CompletableFuture, Parallel Streams
 |2016|9|java.util.concurrent.Flow (Reactive Streams)
-|2022|19|Virtual Threads, structured Concurrency
+|2022|19|Virtual Threads, structured Concurrency (Incubator)
 |===
 
 == Problem: Blockierende Aufrufe

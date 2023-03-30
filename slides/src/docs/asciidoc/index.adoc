@@ -8,7 +8,7 @@ Virtual Threads und structured Concurrency mit Java 19
 
 &nbsp; +
 
-??.??.2023, Hans Jörg Heßmann
+31.03.2023, Hans Jörg Heßmann
 
 &nbsp; +
 

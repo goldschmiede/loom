@@ -25,3 +25,6 @@ include::_limits.adoc[]
 
 [state=no-title-footer]
 == Fragen?
+
+[.center]
+Sourcecode: https://github.com/goldschmiede/loom
